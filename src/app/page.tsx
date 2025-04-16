@@ -6,7 +6,12 @@ export default async function Home() {
   const user = await currentUser();
 
   if (user) {
-    redirect("/dashboard");
+    return (
+      <>
+        <h1>Dashboard</h1>
+        <p>{user.primaryEmailAddress?.emailAddress}</p>
+      </>
+    );
   }
 
   else {
