@@ -25,25 +25,18 @@ export default async function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   const user = await currentUser();
 
-  if (user) {
-    return (
-      <html lang="en" className={`${geist.variable}`}>
-        <body>  
-          <ClerkProvider>
-            <TRPCReactProvider>
-              <SidebarLayout>{children}</SidebarLayout>
-            </TRPCReactProvider>
-          </ClerkProvider>
-        </body>
-      </html>
-    )
-  }
 
   return (
     <html lang="en" className={`${geist.variable}`}>
       <body>
         <ClerkProvider>
-          <TRPCReactProvider>{children}</TRPCReactProvider>
+          <TRPCReactProvider>
+            {user ? (
+              <SidebarLayout>{children}</SidebarLayout>
+            ) : (
+              <>{children}</> 
+            )}
+          </TRPCReactProvider>
         </ClerkProvider>
       </body>
     </html>
