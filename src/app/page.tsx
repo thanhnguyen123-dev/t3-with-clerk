@@ -1,25 +1,19 @@
-"use client";
+import { SignInButton } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+import { currentUser } from "@clerk/nextjs/server";
 
-import { SignInButton, useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
-
-
-export default function Home() {
-  const router = useRouter();
-  const { isSignedIn } = useUser();
-  const { user } = useUser();
-  console.log("user: ", user);
+export default async function Home() {
+  const user = await currentUser();
 
   if (user) {
-    router.push("/dashboard");
+    redirect("/dashboard");
   }
-  if (!user) {
+
+  else {
     return (
       <main className="flex flex-col gap-4 min-h-screen items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
         <h1>Landing page</h1>
-        <SignInButton 
-          mode="modal"
-        />
+        <SignInButton mode="modal" />
       </main>
     );
   }

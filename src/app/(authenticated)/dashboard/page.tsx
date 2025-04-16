@@ -7,11 +7,11 @@ const page = async () => {
     redirect("/");
   }
   return (
-    <div>
+    <>
       <h1>Dashboard</h1>
       <p>{user.primaryEmailAddress?.emailAddress}</p>
       <SignOutButton />
-    </div>
+    </>
   );
 };
 
